@@ -16,7 +16,6 @@ ContentPage {
 
     function runSystemUpdate() { DotsUpdater.runSystemUpdate() }
 
-    function runUpdateDots() { DotsUpdater.runUpdateDots() }
 
     Rectangle {
         Layout.fillWidth: true
@@ -96,24 +95,6 @@ ContentPage {
                             border.width: 2
                             border.color: Appearance.colors.colLayer1
                         }
-                    }
-                }
-            }
-            RowLayout {
-                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-                spacing: 8
-                RippleButton {
-                    buttonText: Translation.tr("Update Dots")
-                    buttonRadius: Appearance.rounding.full
-                    colBackground: Appearance.colors.colPrimaryContainer
-                    colBackgroundHover: Appearance.colors.colPrimaryContainerHover
-                    Layout.preferredHeight: 44
-                    downAction: () => runUpdateDots()
-                    contentItem: StyledText {
-                        text: parent.buttonText
-                        horizontalAlignment: Text.AlignHCenter
-                        leftPadding: 10
-                        rightPadding: 10
                     }
                 }
             }

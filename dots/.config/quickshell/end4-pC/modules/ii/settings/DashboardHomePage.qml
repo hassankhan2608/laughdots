@@ -769,29 +769,6 @@ Item {
                                 }
                             }
 
-                            RippleButton {
-                                Layout.fillWidth: true
-                                implicitHeight: 38
-                                buttonRadius: 19
-                                colBackground: Qt.rgba(1, 1, 1, 0.12)
-                                colBackgroundHover: Qt.rgba(1, 1, 1, 0.22)
-                                downAction: () => DotsUpdater.runUpdateDots()
-                                contentItem: RowLayout {
-                                    spacing: 6
-                                    Item { Layout.fillWidth: true }
-                                    MaterialSymbol {
-                                        text: "deployed_code_update"
-                                        iconSize: 18
-                                        color: Appearance.colors.colOnTertiaryContainer
-                                    }
-                                    StyledText {
-                                        text: Translation.tr("Update Dots")
-                                        font.weight: Font.Medium
-                                        color: Appearance.colors.colOnTertiaryContainer
-                                    }
-                                    Item { Layout.fillWidth: true }
-                                }
-                            }
                         }
                     }
                 }

@@ -1,7 +1,12 @@
 # Laughdots
 
+Official repo: **https://github.com/hassankhan2608/laughdots**
+
 Personal Hyprland dotfiles: a fork of [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
 with the Quickshell shell replaced by [end4-pC](https://github.com/pctrade/end4-pC).
+
+Everything needed to install is in this repo — no submodules, no symlinks, no
+runtime clones from other repositories.
 
 The full upstream documentation (screenshots, features, wiki links) is in
 [.github/README.md](.github/README.md). This file describes what is different here
@@ -38,13 +43,29 @@ and how to install it.
 4. **No submodules.** Upstream pulls `rounded-polygon-qmljs` as a git submodule
    for `modules/common/widgets/shapes`; here those files are plain files in the
    repo, so `git clone` works without `--recursive`.
+5. **No runtime pulls.** The shell's "Update Dots" button (which cloned
+   `pctrade/end4-pC` over the installed shell) is removed. Nothing in this repo
+   fetches code from another repository at runtime or at install time; updates
+   happen only when you `git pull` this repo yourself.
+6. **No symlinks.** The two icon symlinks inherited from end4-pC
+   (`ai-openai-symbolic.svg`, `google-gemini-symbolic.svg`) are stored as real
+   files. The repo contains zero symlinks, and the installer copies files rather
+   than linking them.
+7. **Upstream CI removed.** `.github/workflows` and `FUNDING.yml` targeted
+   end-4's repository and issue tracker; they are not part of this fork.
 
 ## Install
 
 ```sh
-git clone <this-repo> ~/repos/laughdots
+git clone https://github.com/hassankhan2608/laughdots.git ~/repos/laughdots
 cd ~/repos/laughdots
 ./setup install
+```
+
+Or in one step:
+
+```sh
+bash <(curl -fsSL https://raw.githubusercontent.com/hassankhan2608/laughdots/main/get.sh)
 ```
 
 The installer is end-4's own interactive setup:
@@ -86,15 +107,26 @@ sdata/                              installer backend (per-distro dependency lis
 setup                               installer entry point
 ```
 
+## Updates
+
+There is no in-shell updater any more. To update:
+
+```sh
+cd ~/repos/laughdots
+git pull
+./setup install-files     # re-copy configs (backs up clashing files)
+hyprctl reload
+```
+
+`./setup install` also re-runs dependency installation.
+
 ## Known caveats
 
-- **`DotsUpdater.qml` still points at `pctrade/end4-pC`.** Pressing "update dots"
-  inside the shell clones upstream over the vendored copy and would discard the
-  changes tracked in this repo. Repoint it at laughdots (or disable it) before
-  using that button.
 - Features from immaterial-impulse (the setup these dots grew out of) are being
   ported selectively, not wholesale.
 - The old imi SDDM theme is not part of this repo.
+- The online preset gallery (`Config.options.profile.onlinePresets`) is off by
+  default and only fetches when you explicitly enable and browse it.
 
 ## Licence
 
