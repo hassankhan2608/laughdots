@@ -6,7 +6,7 @@
 
 # Translations
 
-See `dots/.config/quickshell/ii/translations/tools`
+See `dots/.config/quickshell/end4-pC/translations/tools`
 
 # Code
 
@@ -45,11 +45,11 @@ _Might not be necessary depending on what you change, but this is recommended._
 
 _Most stuff in the shell will work but not everything._
 
-- Install Hyprland and the development version of Quickshell (`yay -S hyprland quickshell-git`).
+- Install Hyprland and the development version of Quickshell (`paru -S hyprland quickshell-git`).
 - Copy `dots/.config/quickshell` folder to your home directory.
 
 ## Extra setup for Quickshell
-- Quickshell-specific LSP setup: Run `touch ~/.config/quickshell/ii/.qmlls.ini` for proper LSP support.
+- Quickshell-specific LSP setup: Run `touch ~/.config/quickshell/end4-pC/.qmlls.ini` for proper LSP support.
 - Hint for VSCode: Get the official "Qt Qml" extension, go to its settings and change custom exe path to `/usr/bin/qmlls6`.
 
 ## Python
@@ -59,6 +59,6 @@ If your changes involves using python package or script, please use the virtual 
 
 - Launch Hyprland (not the "uwsm-managed" one)
 - For the shell:
-  - Open `~/.config/quickshell/ii` in your code editor.
-  - In a terminal run `pkill qs; qs -c ii` to start the shell in the terminal (for logs).
+  - Open `~/.config/quickshell/end4-pC` in your code editor.
+  - In a terminal run `pkill qs; qs -c end4-pC` to start the shell in the terminal (for logs).
   - Make edits in the opened folder. Changes are reloaded live.

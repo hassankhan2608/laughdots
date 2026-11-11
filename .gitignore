@@ -5,7 +5,7 @@
 __pycache__/
 *.py[cod]
 
-/dots/.config/quickshell/ii/.qmlls.ini
+/dots/.config/quickshell/end4-pC/.qmlls.ini
 
 # exp-update
 /.update-lock

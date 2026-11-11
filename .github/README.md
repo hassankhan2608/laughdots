@@ -1,3 +1,9 @@
+> **This is the Laughdots fork.** The Quickshell shell here is
+> [end4-pC](https://github.com/pctrade/end4-pC) (not upstream's `ii`), the AUR
+> helper is `paru` (not `yay`), and the install instructions below assume
+> upstream's repo. Read [../README.md](../README.md) for the fork's install
+> steps and the list of differences.
+
 <div align="center">
     <h1>【 end_4's Hyprland dotfiles 】</h1>
     <h3></h3>
