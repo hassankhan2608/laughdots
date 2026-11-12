@@ -46,7 +46,10 @@ patterns:
   - from: "dots/.config/hypr"
     to: "$XDG_CONFIG_HOME/hypr"
     mode: "sync"
-    excludes: ["custom", "hyprlock.conf", "hypridle.conf"]
+    # Machine-local files that must survive an update:
+    #   custom/       per-user overrides (skip-if-exists below)
+    #   monitors.lua, workspaces.lua  written by nwg-displays for this display setup
+    excludes: ["custom", "hyprlock.conf", "hypridle.conf", "monitors.lua", "workspaces.lua"]
   # Hyprland special files
   - from: "dots/.config/hypr/hypridle.conf"
     to: "$XDG_CONFIG_HOME/hypr/hypridle.conf"
