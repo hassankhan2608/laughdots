@@ -15,7 +15,7 @@ Item {
     property bool translatorEnabled: Config.options.sidebar.translator.enable
     property bool animeEnabled: Config.options.policies.weeb !== 0
     property bool animeCloset: Config.options.policies.weeb === 2
-    property bool tailnetEnabled: true
+    property bool tailnetEnabled: Config.options.sidebar.tailnet.enable
     property bool mediaEnabled: Config.options.sidebar.media.enable
     property bool footballEnabled: Config.options.sidebar.football.enable
 

@@ -383,6 +383,12 @@ ContentPage {
                             checked: Config.options.sidebar.football.enable
                             onCheckedChanged: { Config.options.sidebar.football.enable = checked }
                         }
+                        ConfigSwitch {
+                            buttonIcon: "hub"
+                            text: Translation.tr("Tailnet")
+                            checked: Config.options.sidebar.tailnet.enable
+                            onCheckedChanged: { Config.options.sidebar.tailnet.enable = checked }
+                        }
                     }
                 }
             }
