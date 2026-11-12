@@ -47,7 +47,9 @@ and how to install it.
 5. **No runtime pulls.** The shell's "Update Dots" button (which cloned
    upstream's shell repo over the installed shell) is removed. Nothing in this repo
    fetches code from another repository at runtime or at install time; updates
-   happen only when you `git pull` this repo yourself.
+   happen only when you `git pull` this repo yourself. The single exception is
+   the opt-in SDDM theme step (`./setup install-sddm`), which fetches that
+   theme's installer at a pinned commit — never on a normal install.
 6. **No symlinks.** The two icon symlinks inherited from the upstream shell
    (`ai-openai-symbolic.svg`, `google-gemini-symbolic.svg`) are stored as real
    files. The repo contains zero symlinks, and the installer copies files rather
@@ -104,6 +106,32 @@ pkill qs; qs -c laugh >/dev/null 2>&1 & disown
 - Hyprland 0.55 or newer (Lua-configured dots)
 - A working build toolchain (`base-devel`) for the AUR packages
 
+## SDDM login theme (optional)
+
+end-4 does not ship a greeter theme. laughdots can install
+[imi-sddm-theme](https://github.com/XephyLon/imi-sddm-theme) — the same
+GPL-3.0 theme immaterial-impulse uses — as an opt-in step:
+
+```sh
+./setup install-sddm      # install it now
+./setup install --sddm    # run the step at the end of a full install
+```
+
+The step prints the laughdots banner, shows what will be touched, and asks for
+the integration mode:
+
+```
+1) Shell + Matugen   greeter follows the shell wallpaper and colors   (default)
+2) Matugen only      colors from the wallpaper, settings by hand
+3) Manual            background and colors by hand
+```
+
+The theme's own installer is fetched at a pinned commit (`1b0ac8bb…`) and the
+same pin is handed to the theme content it installs, so installer and theme are
+one revision. Install state is recorded in
+`~/.local/state/laughdots/sddm-theme-installed`. Skipping the step leaves your
+existing greeter untouched.
+
 ## Layout
 
 ```
@@ -132,7 +160,9 @@ hyprctl reload
 
 - Features from immaterial-impulse (the setup these dots grew out of) are being
   ported selectively, not wholesale.
-- The old imi SDDM theme is not part of this repo.
+- The imi SDDM theme is opt-in (`./setup install-sddm`) and stays third-party:
+  it is fetched pinned, not vendored, and laughdots' uninstall does not remove
+  it.
 - The online preset gallery (`Config.options.profile.onlinePresets`) is off by
   default and only fetches when you explicitly enable and browse it.
 
