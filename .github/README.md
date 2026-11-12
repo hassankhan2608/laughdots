@@ -1,5 +1,6 @@
 > **This is the Laughdots fork.** The Quickshell shell here is
-> [end4-pC](https://github.com/pctrade/end4-pC) (not upstream's `ii`), the AUR
+> a renamed copy of [end4-pC](https://github.com/pctrade/end4-pC) called `laugh`
+> (not upstream's `ii`), the AUR
 > helper is `paru` (not `yay`), and the install instructions below assume
 > upstream's repo. Read [../README.md](../README.md) for the fork's install
 > steps and the list of differences.

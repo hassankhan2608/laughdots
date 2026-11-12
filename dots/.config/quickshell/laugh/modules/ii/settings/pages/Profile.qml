@@ -113,7 +113,7 @@ ContentPage {
         id: onlinePresetsListProc
         command: ["curl", "-sSL", "-w", "\nHTTP_STATUS:%{http_code}",
             "-H", "Accept: application/vnd.github+json",
-            "-H", "User-Agent: end4-pC-quickshell",
+            "-H", "User-Agent: laughdots-quickshell",
             "https://api.github.com/repos/Blapples/wallpapers/git/trees/main?recursive=1"]
         stdout: StdioCollector { id: onlinePresetsListCollector }
         onExited: (code) => {

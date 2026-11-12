@@ -136,7 +136,7 @@ Singleton {
         listProc.source = src;
         listProc.command = ["curl", "-sSL", "-w", "\nHTTP_STATUS:%{http_code}",
             "-H", "Accept: application/vnd.github+json",
-            "-H", "User-Agent: end4-pC-quickshell",
+            "-H", "User-Agent: laughdots-quickshell",
             `https://api.github.com/repos/${src.repo}/git/trees/${src.branch}?recursive=1`];
         listProc.running = true;
     }

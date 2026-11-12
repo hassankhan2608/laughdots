@@ -23,7 +23,7 @@ if status is-interactive
     alias celar "printf '\033[2J\033[3J\033[1;1H'"
     alias claer "printf '\033[2J\033[3J\033[1;1H'"
     alias pamcan pacman
-    alias q 'qs -c end4-pC'
+    alias q 'qs -c laugh'
     if test "$TERM" != "linux"
         alias ls 'eza --icons=auto'
     end

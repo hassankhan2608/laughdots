@@ -3,7 +3,8 @@
 Official repo: **https://github.com/hassankhan2608/laughdots**
 
 Personal Hyprland dotfiles: a fork of [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
-with the Quickshell shell replaced by [end4-pC](https://github.com/pctrade/end4-pC).
+with the Quickshell shell replaced by a renamed copy of
+[end4-pC](https://github.com/pctrade/end4-pC) that lives here as `laugh`.
 
 Everything needed to install is in this repo — no submodules, no symlinks, no
 runtime clones from other repositories.
@@ -17,19 +18,19 @@ and how to install it.
 | Layer | Source |
 |---|---|
 | Hyprland config, installers, app configs | end-4/dots-hyprland, unmodified apart from the changes below |
-| Quickshell shell | end4-pC, vendored at `dots/.config/quickshell/end4-pC` |
+| Quickshell shell | `laugh` (vendored from end4-pC) at `dots/.config/quickshell/laugh` |
 | AUR helper | **paru** (upstream uses yay) |
 
 ## Changes from upstream end-4
 
 1. **Shell swapped.** `dots/.config/quickshell/ii` is gone; the shell lives in
-   `dots/.config/quickshell/end4-pC`, and `qsConfig` is `end4-pC`.
+   `dots/.config/quickshell/laugh`, and `qsConfig` is `laugh`.
    This also affects:
    - `sdata/subcmd-install/3.files-exp.yaml` (install mapping)
-   - `dots/.config/fish/config.fish` (`alias q 'qs -c end4-pC'`)
+   - `dots/.config/fish/config.fish` (`alias q 'qs -c laugh'`)
    - `dots/.config/hypr/hyprland/variables.lua` (`qsConfig`, settings app)
    - docs, issue templates and the translation tool defaults
-2. **Settings app.** end4-pC has no standalone `settings.qml`, so the settings
+2. **Settings app.** The shell has no standalone `settings.qml`, so the settings
    keybind now uses `qs -c $qsConfig ipc call settings toggle` (the shell's IPC
    handler) with the same desktop-settings fallbacks.
 3. **paru instead of yay.**
@@ -44,10 +45,10 @@ and how to install it.
    for `modules/common/widgets/shapes`; here those files are plain files in the
    repo, so `git clone` works without `--recursive`.
 5. **No runtime pulls.** The shell's "Update Dots" button (which cloned
-   `pctrade/end4-pC` over the installed shell) is removed. Nothing in this repo
+   upstream's shell repo over the installed shell) is removed. Nothing in this repo
    fetches code from another repository at runtime or at install time; updates
    happen only when you `git pull` this repo yourself.
-6. **No symlinks.** The two icon symlinks inherited from end4-pC
+6. **No symlinks.** The two icon symlinks inherited from the upstream shell
    (`ai-openai-symbolic.svg`, `google-gemini-symbolic.svg`) are stored as real
    files. The repo contains zero symlinks, and the installer copies files rather
    than linking them.
@@ -86,7 +87,7 @@ After installing, reload the compositor and (re)start the shell:
 
 ```sh
 hyprctl reload
-pkill qs; qs -c end4-pC >/dev/null 2>&1 & disown
+pkill qs; qs -c laugh >/dev/null 2>&1 & disown
 ```
 
 ### Requirements
@@ -100,7 +101,7 @@ pkill qs; qs -c end4-pC >/dev/null 2>&1 & disown
 
 ```
 dots/.config/hypr/                  Hyprland (Lua config, scripts, hyprlock/hypridle)
-dots/.config/quickshell/end4-pC/    Quickshell shell (end4-pC)
+dots/.config/quickshell/laugh/    Quickshell shell (laugh, vendored from end4-pC)
 dots/.config/{kitty,foot,fish,fuzzel,mpv,wlogout,Kvantum,matugen,...}
 dots/.local/share/                  icons, konsole profiles
 sdata/                              installer backend (per-distro dependency lists)
@@ -130,6 +131,6 @@ hyprctl reload
 
 ## Licence
 
-GPL-3.0, inherited from end-4/dots-hyprland (`LICENSE`) and end4-pC
-(`dots/.config/quickshell/end4-pC/LICENSE`). Per-file attribution is kept in the
+GPL-3.0, inherited from end-4/dots-hyprland (`LICENSE`) and the vendored shell
+(`dots/.config/quickshell/laugh/LICENSE`). Per-file attribution is kept in the
 vendored shell.
