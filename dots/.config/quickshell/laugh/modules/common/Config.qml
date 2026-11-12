@@ -81,8 +81,8 @@ Singleton {
             property string panelFamily: "ii" // "ii", "waffle"
 
             property JsonObject policies: JsonObject {
-                property int ai: 1 // 0: No | 1: Yes | 2: Local
-                property int weeb: 1 // 0: No | 1: Open | 2: Closet
+                property int ai: 0 // 0: No | 1: Yes | 2: Local
+                property int weeb: 0 // 0: No | 1: Open | 2: Closet
             }
 
             property JsonObject ai: JsonObject {
@@ -128,7 +128,7 @@ Singleton {
                     property string expressive: "Space Grotesk"
                 }
                 property JsonObject transparency: JsonObject {
-                    property bool enable: false
+                    property bool enable: true
                     property bool automatic: true
                     property real backgroundTransparency: 0.11
                     property real contentTransparency: 0.57
@@ -225,7 +225,7 @@ Singleton {
                     property int repeatRate: 35
                     property int followMouse: 1
                     property JsonObject touchpad: JsonObject {
-                        property bool naturalScroll: false
+                        property bool naturalScroll: true
                         property bool disableWhileTyping: true
                         property bool clickfingerBehavior: false
                         property real scrollFactor: 0.7
@@ -292,7 +292,7 @@ Singleton {
                     property list<string> menuHidden: []
                     property JsonObject clock: JsonObject {
                         property bool enable: true
-                        property bool showOnlyWhenLocked: false
+                        property bool showOnlyWhenLocked: true
                         property string placementStrategy: "leastBusy" // "free", "leastBusy", "mostBusy"
                         property real x: 100
                         property real y: 100
@@ -537,7 +537,7 @@ Singleton {
                 property bool followFrameColor: false
                 property bool centerOnlyReserveFrame: false
                 property bool bottom: false // Instead of top
-                property int cornerStyle: 0 // 0: Hug | 1: Float | 2: Plain rectangle | 3: M3 | 4: M3 Hug | 5: Panel | 6: Split Hug
+                property int cornerStyle: 4 // 0: Hug | 1: Float | 2: Plain rectangle | 3: M3 | 4: M3 Hug | 5: Panel | 6: Split Hug
                 property string groupColor: "layer1"
                 property bool floatStyleShadow: true // Show shadow behind bar when cornerStyle == 1 (Float)
                 property string borderless: "pills"
@@ -579,7 +579,7 @@ Singleton {
 
                 property JsonObject layouts: JsonObject {
                     property list<string> leftLayout: ["launcherButton", "workspaces", "activeWindow"]
-                    property list<string> middleLayout: ["clockWidget"]
+                    property list<string> middleLayout: ["clockWidget", "batteryIndicator", "networkSpeed"]
                     property list<string> rightLayout: ["sysTray", "utilButtons", "systemIcons", "powerButton"]
                 }
                 
@@ -604,7 +604,7 @@ Singleton {
                 property JsonObject workspaces: JsonObject {
                     property bool monochromeIcons: true
                     property int shown: 10
-                    property bool showAppIcons: false
+                    property bool showAppIcons: true
                     property string indicatorStyle: "dot" // "dot" or "icon"
                     property string style: "default" // "default", "gnome", "dots", "ticks"
                     property bool alwaysShowNumbers: true
@@ -627,7 +627,7 @@ Singleton {
                 property JsonObject tooltips: JsonObject {
                     property bool enable: true
                     property bool clickToShow: false
-                    property string style: "default"
+                    property string style: "morph"
                 }
                 property JsonObject media: JsonObject {
                     property string preferredPlayer: ""
@@ -656,7 +656,7 @@ Singleton {
 
             property JsonObject conflictKiller: JsonObject {
                 property bool autoKillNotificationDaemons: false
-                property bool autoKillTrays: false
+                property bool autoKillTrays: true
             }
 
             property JsonObject crosshair: JsonObject {
@@ -933,8 +933,8 @@ Singleton {
                     property bool bottom: false
                     property bool valueScroll: true
                     property bool clickless: false
-                    property int cornerRegionWidth: 250
-                    property int cornerRegionHeight: 5
+                    property int cornerRegionWidth: 276
+                    property int cornerRegionHeight: 8
                     property string bottomLeftAction: "sidebarLeftOpen"
                     property string bottomRightAction: "sidebarRightOpen"
                     property bool visualize: false
@@ -959,7 +959,7 @@ Singleton {
                 }
 
                 property JsonObject quickSliders: JsonObject {
-                    property bool enable: true
+                    property bool enable: false
                     property bool showMic: false
                     property bool showVolume: true
                     property bool showBrightness: true
@@ -984,7 +984,7 @@ Singleton {
             }
 
             property JsonObject sounds: JsonObject {
-                property bool battery: false
+                property bool battery: true
                 property bool pomodoro: false
                 property string theme: "freedesktop"
             }
