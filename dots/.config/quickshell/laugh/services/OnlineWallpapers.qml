@@ -9,7 +9,7 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    property string provider:   "wallhaven"  // "wallhaven" | "unsplash" | "pexels" | "blapples" | "naive"
+    property string provider:   "wallhaven"  // "wallhaven" | "unsplash" | "pexels" | "blapples" | "naive" | "laughingman"
     property string resolution: "1080p"      // "1080p" | "2K" | "4K"
     property string query:      ""           // empty keyword = random
     property string colorGroup: ""           // naive: "" = all | "red"|"orange"|"yellow"|"green"|"blue"|"purple"
@@ -24,6 +24,7 @@ Singleton {
 
     property var _naiveFullResults: []
     property var _blapplesFullResults: []
+    property var _laughingmanFullResults: []
     property int localPageSize: 24
 
     signal fetched()
@@ -43,6 +44,9 @@ Singleton {
     readonly property string naiveJsonUrl: "https://raw.githubusercontent.com/na-ive/wallpapers/gh-pages/wallpapers.json"
     readonly property string naivePagesBase: "https://raw.githubusercontent.com/na-ive/wallpapers/gh-pages/"
     readonly property string naiveFullBase: "https://raw.githubusercontent.com/na-ive/wallpapers/main/"
+
+    // ─── Laughingman (hassankhan2608/WALLPAPERS) ───
+    readonly property string laughingmanJsonUrl: "https://hassankhan2608.github.io/WALLPAPERS/wallpapers.json"
 
     // ─── Resolution ───
     readonly property var resolutionMap: ({
@@ -82,8 +86,10 @@ Singleton {
     function nextPage() {
         if (root.loading) return;
 
-        if (root.provider === "naive" || root.provider === "blapples") {
-            const full = root.provider === "naive" ? root._naiveFullResults : root._blapplesFullResults;
+        if (root.provider === "naive" || root.provider === "blapples" || root.provider === "laughingman") {
+            const full = root.provider === "naive" ? root._naiveFullResults
+                : root.provider === "laughingman" ? root._laughingmanFullResults
+                : root._blapplesFullResults;
             if (root.page * root.localPageSize >= full.length) return;
             root.page += 1;
             root.appending = true;
@@ -101,8 +107,10 @@ Singleton {
     function prevPage() {
         if (root.loading || root.page <= 1) return;
 
-        if (root.provider === "naive" || root.provider === "blapples") {
-            const full = root.provider === "naive" ? root._naiveFullResults : root._blapplesFullResults;
+        if (root.provider === "naive" || root.provider === "blapples" || root.provider === "laughingman") {
+            const full = root.provider === "naive" ? root._naiveFullResults
+                : root.provider === "laughingman" ? root._laughingmanFullResults
+                : root._blapplesFullResults;
             root.page -= 1;
             root.appending = false;
             root.results = full.slice(0, root.page * root.localPageSize);
@@ -125,14 +133,18 @@ Singleton {
             _fetchBlapples();
         } else if (root.provider === "naive") {
             _fetchNaive();
+        } else if (root.provider === "laughingman") {
+            _fetchLaughingman();
         }
     }
 
     function goToPage(n) {
         root.page = n;
 
-        if (root.provider === "naive" || root.provider === "blapples") {
-            const full = root.provider === "naive" ? root._naiveFullResults : root._blapplesFullResults;
+        if (root.provider === "naive" || root.provider === "blapples" || root.provider === "laughingman") {
+            const full = root.provider === "naive" ? root._naiveFullResults
+                : root.provider === "laughingman" ? root._laughingmanFullResults
+                : root._blapplesFullResults;
             root.appending = false;
             root.results = full.slice(0, root.page * root.localPageSize);
             return;
@@ -182,6 +194,12 @@ Singleton {
 
     function _fetchNaive() {
         _startLocalStream("naive", root.naiveJsonUrl);
+    }
+
+    function _fetchLaughingman() {
+        fetchProc.provider = "laughingman";
+        fetchProc.command = ["curl", "-sSL", "-m", "30", root.laughingmanJsonUrl];
+        fetchProc.running = true;
     }
 
     function _startLocalStream(provider, url) {
@@ -342,6 +360,49 @@ Singleton {
         };
     }
 
+    function _mapLaughingman(item) {
+        const filename = String(item.filename ?? "");
+        const baseName = filename.replace(/\.[^.]+$/, "");
+        return {
+            id:               String(item.id ?? baseName),
+            thumb:            String(item.thumbnailUrl ?? ""),
+            full:             String(item.imageUrl ?? ""),
+            provider:         "laughingman",
+            title:            String(item.name ?? baseName.replace(/[-_]+/g, " ")),
+            author:           "",
+            authorUrl:        String(item.sourceUrl ?? ""),
+            likes:            0,
+            width:            item.width ?? 0,
+            height:           item.height ?? 0,
+            avgColor:         String(item.dominantColor ?? ""),
+            colorGroups:      (item.colorGroups ?? []).map(g => String(g).toLowerCase()),
+            downloadLocation: "",
+        };
+    }
+
+    function _parseLaughingman(jsonStr) {
+        try {
+            const data = JSON.parse(jsonStr);
+            const list = Array.isArray(data) ? data : (data.wallpapers ?? []);
+            const q = root.query.trim().toLowerCase();
+            const cg = root.colorGroup.trim().toLowerCase();
+            const mapped = list.map(item => root._mapLaughingman(item)).filter(item => {
+                if (item.thumb.length === 0 || item.full.length === 0) return false;
+                if (q.length > 0 && !String(item.title).toLowerCase().includes(q)) return false;
+                if (cg.length > 0 && !(item.colorGroups ?? []).includes(cg)) return false;
+                return true;
+            });
+            root._laughingmanFullResults = mapped;
+            root.totalPages = Math.max(1, Math.ceil(mapped.length / root.localPageSize));
+            root.page = 1;
+            root.appending = false;
+            root.results = mapped.slice(0, root.localPageSize);
+            root.fetched();
+        } catch (e) {
+            root.fetchError("Laughingman parse error: " + e);
+        }
+    }
+
     // ─── Process ───
     Process {
         id: streamProc
@@ -401,6 +462,8 @@ Singleton {
                 root._parseUnsplash(fetchProc.buffer);
             } else if (fetchProc.provider === "pexels") {
                 root._parsePexels(fetchProc.buffer);
+            } else if (fetchProc.provider === "laughingman") {
+                root._parseLaughingman(fetchProc.buffer);
             }
         }
     }

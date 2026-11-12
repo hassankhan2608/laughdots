@@ -54,6 +54,13 @@ and how to install it.
    than linking them.
 7. **Upstream CI removed.** `.github/workflows` and `FUNDING.yml` targeted
    end-4's repository and issue tracker; they are not part of this fork.
+8. **Personal wallpaper source.** The wallpaper picker's *Source* dropdown has a
+   `Laughingman` entry backed by
+   [hassankhan2608/WALLPAPERS](https://github.com/hassankhan2608/WALLPAPERS),
+   reading its published catalog
+   (`https://hassankhan2608.github.io/WALLPAPERS/wallpapers.json`). Thumbnails
+   stream from the catalog; applying a wallpaper downloads it to
+   `~/Pictures/Wallpapers`. Only images are fetched, never code.
 
 ## Install
 

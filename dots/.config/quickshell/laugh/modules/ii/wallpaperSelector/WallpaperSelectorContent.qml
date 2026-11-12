@@ -276,7 +276,7 @@ MouseArea {
 
                     Toolbar {
                         anchors.centerIn: parent
-                        visible: root.source !== "blapples" && root.source !== "naive" && root.source !== "wallhaven"
+                        visible: root.source !== "blapples" && root.source !== "naive" && root.source !== "laughingman" && root.source !== "wallhaven"
                         colBackground: Appearance.colors.colLayer1
                         outerShadow: true
                         glass: true
@@ -321,7 +321,7 @@ MouseArea {
                         }
 
                         Loader {
-                            active: root.source !== "local" && root.source !== "blapples" && root.source !== "naive" && root.source !== "wallhaven"
+                            active: root.source !== "local" && root.source !== "blapples" && root.source !== "naive" && root.source !== "laughingman" && root.source !== "wallhaven"
                             visible: active
                             sourceComponent: RowLayout {
                                 spacing: 4
@@ -350,7 +350,7 @@ MouseArea {
                     }
 
                     Loader {
-                        active: root.source === "naive" || root.source === "blapples" || root.source === "wallhaven"
+                        active: root.source === "naive" || root.source === "blapples" || root.source === "laughingman" || root.source === "wallhaven"
                         visible: active
                         anchors.centerIn: parent
                         sourceComponent: CustomColorSelectionArray {
@@ -393,7 +393,8 @@ MouseArea {
                             glass: true
                             implicitWidth: 120
                             model: [
-                                { value: "local",     displayName: Translation.tr("Local") },
+                                { value: "local",       displayName: Translation.tr("Local") },
+                                { value: "laughingman", displayName: Translation.tr("Laughingman") },
                                 { value: "wallhaven", displayName: Translation.tr("Wallhaven") },
                                 { value: "blapples",  displayName: Translation.tr("Blapples") },
                                 { value: "naive",     displayName: Translation.tr("NA-ive") },
