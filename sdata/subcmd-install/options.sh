@@ -14,7 +14,7 @@ Options for install:
       --skip-alldeps        Skip the whole process installing dependency
       --skip-allsetups      Skip the whole process setting up permissions/services etc
       --skip-allfiles       Skip the whole process copying configuration files
-      --sddm                Opt in to the SDDM login theme step (imi-sddm-theme).
+      --sddm                Opt in to the SDDM login theme step (ii-sddm-theme).
       --ignore-outdate      Ignore outdate checking for community supported \"dist-*\".
   -s, --skip-sysupdate      Skip system package upgrade e.g. \"sudo pacman -Syu\"
       --skip-plasmaintg     Skip installing plasma-browser-integration

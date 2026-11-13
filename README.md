@@ -108,27 +108,25 @@ pkill qs; qs -c laugh >/dev/null 2>&1 & disown
 
 ## SDDM login theme (optional)
 
-end-4 does not ship a greeter theme. laughdots can install
-[imi-sddm-theme](https://github.com/XephyLon/imi-sddm-theme) — the same
-GPL-3.0 theme immaterial-impulse uses — as an opt-in step:
+end-4 does not ship a greeter theme. laughdots can install the upstream
+[ii-sddm-theme](https://github.com/3d3f/ii-sddm-theme) (GPL-3.0) as an opt-in
+step:
 
 ```sh
 ./setup install-sddm      # install it now
 ./setup install --sddm    # run the step at the end of a full install
 ```
 
-The step prints the laughdots banner, shows what will be touched, and asks for
-the integration mode:
+The step prints the laughdots banner, shows what will be touched, removes an
+older `imi-sddm-theme` install if one is present, then hands off to upstream's
+installer for the integration mode (Shell + Matugen / Matugen only / Manual).
 
-```
-1) Shell + Matugen   greeter follows the shell wallpaper and colors   (default)
-2) Matugen only      colors from the wallpaper, settings by hand
-3) Manual            background and colors by hand
-```
-
-The theme's own installer is fetched at a pinned commit (`1b0ac8bb…`) and the
-same pin is handed to the theme content it installs, so installer and theme are
-one revision. Install state is recorded in
+The installer is fetched at a pinned commit (`1d4bcb6…`) **and the theme content
+is pinned to the same commit**: upstream's `setup.sh` otherwise clones its
+default branch, so laughing only the installer would let the theme drift. A
+throwaway `GIT_CONFIG_GLOBAL` with an `insteadOf` rewrite points that clone at a
+pinned temp mirror, so installer and theme are one revision and nothing global
+is modified. Install state is recorded in
 `~/.local/state/laughdots/sddm-theme-installed`. Skipping the step leaves your
 existing greeter untouched.
 
@@ -160,7 +158,7 @@ hyprctl reload
 
 - Features from immaterial-impulse (the setup these dots grew out of) are being
   ported selectively, not wholesale.
-- The imi SDDM theme is opt-in (`./setup install-sddm`) and stays third-party:
+- The ii SDDM theme is opt-in (`./setup install-sddm`) and stays third-party:
   it is fetched pinned, not vendored, and laughdots' uninstall does not remove
   it.
 - The online preset gallery (`Config.options.profile.onlinePresets`) is off by
